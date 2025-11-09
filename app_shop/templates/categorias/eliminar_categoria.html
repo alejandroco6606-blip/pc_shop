@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="card shadow-sm col-md-6 mx-auto border-danger">
+        <div class="card-header bg-danger text-white">
+            <h1 class="h3 mb-0">Eliminar Categoría</h1>
+        </div>
+        <div class="card-body">
+            <div class="alert alert-warning" role="alert">
+                <h4 class="alert-heading">¿Estás seguro?</h4>
+                <p>Vas a eliminar la categoría: <strong>{{ categoria.nombre }}</strong></p>
+                <hr>
+                <p class="mb-0"><strong>Nota:</strong> Los productos asociados a esta categoría NO serán eliminados, pero quedarán sin categoría asignada.</p>
+            </div>
+
+            <form method="post">
+                {% csrf_token %}
+                <div class="text-end">
+                    <a href="{% url 'inventario:lista_categorias' %}" class="btn btn-secondary">Cancelar</a>
+                    <button type="submit" class="btn btn-danger">Sí, eliminar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}

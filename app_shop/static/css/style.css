@@ -1,0 +1,11 @@
+/* Aquí puedes agregar tus estilos CSS personalizados 
+para sobrescribir Bootstrap o añadir nuevos estilos.
+*/
+body {
+    background-color: #f8f9fa; /* Un fondo gris claro */
+}
+
+.table-hover tbody tr:hover {
+    background-color: #f1f1f1;
+    cursor: pointer;
+}

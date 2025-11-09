@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    
+    <div class="card shadow-sm">
+        <div class="card-header">
+            <h1 class="h3 mb-0">Editar Producto</h1>
+        </div>
+        <div class="card-body">
+            <form method="post">
+                {% csrf_token %}
+                
+                {% for field in form %}
+                    <div class="mb-3">
+                        {{ field.label_tag }}
+                        {{ field }}
+                        {% if field.help_text %}
+                            <small class="form-text text-muted">{{ field.help_text }}</small>
+                        {% endif %}
+                        {% for error in field.errors %}
+                            <div class="text-danger small">{{ error }}</div>
+                        {% endfor %}
+                    </div>
+                {% endfor %}
+                
+                <hr>
+                <div class="text-end">
+                    <a href="{% url 'inventario:lista_productos' %}" class="btn btn-secondary">Cancelar</a>
+                    <button type="submit" class="btn btn-success">Actualizar Producto</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+{% endblock %}

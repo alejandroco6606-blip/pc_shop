@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="card shadow-sm col-md-6 mx-auto">
+        <div class="card-header">
+            <h1 class="h3 mb-0">Editar Categoría</h1>
+        </div>
+        <div class="card-body">
+            <form method="post">
+                {% csrf_token %}
+                {% for field in form %}
+                    <div class="mb-3">
+                        {{ field.label_tag }}
+                        {{ field }}
+                        {% if field.errors %}
+                            <div class="text-danger small">{{ field.errors|striptags }}</div>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+                
+                <hr>
+                <div class="text-end">
+                    <a href="{% url 'inventario:lista_categorias' %}" class="btn btn-secondary">Cancelar</a>
+                    <button type="submit" class="btn btn-success">Actualizar Categoría</button>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}

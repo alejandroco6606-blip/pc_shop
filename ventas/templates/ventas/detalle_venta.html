@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Detalle Venta</h2>
+<p>ID: {{ venta.id }}</p>
+<p>Cliente: {{ venta.cliente }}</p>
+<p>Vendedor: {{ venta.vendedor }}</p>
+<p>Fecha: {{ venta.fecha }}</p>
+<h3>Detalle</h3>
+<ul>
+{% for item in venta.detalleventa_set.all %}
+    <li>{{ item.producto }} — Cantidad: {{ item.cantidad }}</li>
+{% empty %}
+    <li>Sin detalle</li>
+{% endfor %}
+</ul>
+<a href="{% url 'ventas:lista_ventas' %}">Volver a la lista</a>
+{% endblock %}

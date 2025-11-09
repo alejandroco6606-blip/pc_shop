@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        
+        <div class="card shadow-lg">
+            <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center">
+                <h3 class="h5 mb-0">Ficha de Producto #{{ producto.pk }}</h3>
+                <span class="badge bg-primary">{{ producto.categoria.nombre|default:"Sin Categoría" }}</span>
+            </div>
+            
+            <div class="card-body">
+                <h1 class="display-5 text-primary mb-4">{{ producto.nombre }}</h1>
+                
+                <div class="row mb-4">
+                    <div class="col-md-6">
+                        <h5 class="text-muted">Precio de Venta</h5>
+                        <p class="display-6 text-success fw-bold">${{ producto.precio|floatformat:0 }}</p>
+                    </div>
+                    <div class="col-md-6">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                <strong>Marca:</strong>
+                                <span>{{ producto.marca.nombre|default:"-" }}</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                <strong>Proveedor:</strong>
+                                <span>{{ producto.proveedor.nombre|default:"-" }}</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="mb-4">
+                    <h5 class="text-muted border-bottom pb-2">Descripción</h5>
+                    <p class="lead fs-6 mt-3">
+                        {{ producto.descripcion|default:"Sin descripción disponible."|linebreaks }}
+                    </p>
+                </div>
+
+            </div>
+            
+            <div class="card-footer bg-light d-flex justify-content-between">
+                <a href="{% url 'inventario:lista_productos' %}" class="btn btn-outline-secondary">
+                    <i class="bi bi-arrow-left"></i> Volver al listado
+                </a>
+                <div>
+                    <a href="{% url 'inventario:editar_producto' producto.pk %}" class="btn btn-warning">
+                        <i class="bi bi-pencil"></i> Editar
+                    </a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+{% endblock %}

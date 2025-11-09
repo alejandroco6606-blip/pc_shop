@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="card shadow-sm col-md-6 mx-auto border-danger">
+        <div class="card-header bg-danger text-white">
+            <h1 class="h3 mb-0">Eliminar Marca</h1>
+        </div>
+        <div class="card-body">
+            <div class="alert alert-warning" role="alert">
+                <h4 class="alert-heading">¿Estás seguro?</h4>
+                <p>Vas a eliminar la marca: <strong>{{ marca.nombre }}</strong></p>
+                <hr>
+                <p class="mb-0 text-danger"><strong>¡Cuidado!</strong> Esto también eliminará todos los productos que pertenezcan a esta marca.</p>
+            </div>
+
+            <form method="post">
+                {% csrf_token %}
+                <div class="text-end">
+                    <a href="{% url 'inventario:lista_marcas' %}" class="btn btn-secondary">Cancelar</a>
+                    <button type="submit" class="btn btn-danger">Sí, eliminar permanentemente</button>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="card shadow-sm col-md-6 mx-auto">
+        <div class="card-header bg-warning">
+            <h1 class="h3 mb-0 text-dark">Editar Venta #{{ venta.pk }}</h1>
+        </div>
+        <div class="card-body">
+            <form method="post">
+                {% csrf_token %}
+                {% for field in form %}
+                    <div class="mb-3">
+                        {{ field.label_tag }}
+                        {{ field }}
+                        {% if field.errors %}
+                            <div class="text-danger small">{{ field.errors|striptags }}</div>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+                
+                <div class="alert alert-info small">
+                    Nota: El total se recalculará automáticamente al guardar si cambias el producto o la cantidad.
+                </div>
+
+                <hr>
+                <div class="text-end">
+                    <a href="{% url 'ventas:lista_ventas' %}" class="btn btn-secondary">Cancelar</a>
+                    <button type="submit" class="btn btn-warning">Actualizar Venta</button>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}
