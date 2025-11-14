@@ -39,7 +39,10 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'app_shop',     # Tu app "core" o de inventario (según tu estructura)
     'inventario',   # Tu app de inventario (si la separaste)
-    'ventas',   # Tu app de ventas (¡Cuidado! creo la llamamos app_ventas, no 'ventas'. Ajústalo si es necesario)
+    'ventas',
+    'apirest'
+    'rest_framework'
+    'rest_framework_simplejwt'   # Tu app de ventas (¡Cuidado! creo la llamamos app_ventas, no 'ventas'. Ajústalo si es necesario)
 ]
 
 MIDDLEWARE = [
@@ -83,9 +86,9 @@ WSGI_APPLICATION = 'pc_shop.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': os.getenv('DB_NAME'),         # <--- CAMBIO
-        'USER': os.getenv('DB_USER'),         # <--- CAMBIO
-        'PASSWORD': os.getenv('DB_PASSWORD'), # <--- CAMBIO
+        'NAME': 'base_pc_shop',         # <--- CAMBIO
+        'USER': 'root',         # <--- CAMBIO
+        'PASSWORD': 'Inacap.2025', # <--- CAMBIO
         'HOST': 'localhost',
         'PORT': '3306',
     }
@@ -126,6 +129,23 @@ STATICFILES_DIRS = [
 # ... (sin cambios) ...
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    ),
+}
+
+# Configuración opcional de SimpleJWT
+from datetime import timedelta
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=15),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=7),
+}
+
 # --- CAMBIO: URLs de Login/Logout (corregidas) ---
 
 LOGIN_URL = 'login' # Nombre de la ruta de tu vista de login
@@ -137,3 +157,11 @@ LOGIN_REDIRECT_URL = 'lista_productos' # <--- AJUSTA ESTO a como lo tengas en tu
 
 # A dónde ir después de cerrar sesión
 LOGOUT_REDIRECT_URL = 'login' # <--- CAMBIO (solo necesitas una)
+
+# Configuración opcional de SimpleJWT
+from datetime import timedelta
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=15),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=7),
+}
