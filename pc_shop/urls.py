@@ -26,4 +26,6 @@ urlpatterns = [
     # Nuevas apps divididas
     path('inventario/', include(('inventario.urls', 'inventario'), namespace='inventario')),
     path('ventas/', include(('ventas.urls', 'ventas'), namespace='ventas')),
+    # API REST
+    path('apirest/', include(('apirest.urls', 'apirest'), namespace='api')),
 ]

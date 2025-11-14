@@ -39,10 +39,10 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'app_shop',     # Tu app "core" o de inventario (según tu estructura)
     'inventario',   # Tu app de inventario (si la separaste)
-    'ventas',
-    'apirest'
-    'rest_framework'
-    'rest_framework_simplejwt'   # Tu app de ventas (¡Cuidado! creo la llamamos app_ventas, no 'ventas'. Ajústalo si es necesario)
+    'ventas',       # Tu app de ventas
+    'apirest',      # API REST
+    'rest_framework',
+    'rest_framework_simplejwt',
 ]
 
 MIDDLEWARE = [
@@ -86,9 +86,9 @@ WSGI_APPLICATION = 'pc_shop.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'base_pc_shop',         # <--- CAMBIO
+        'NAME': 'base_pcshop',         # <--- CAMBIO
         'USER': 'root',         # <--- CAMBIO
-        'PASSWORD': 'Inacap.2025', # <--- CAMBIO
+        'PASSWORD':'Contra.12', # <--- CAMBIO
         'HOST': 'localhost',
         'PORT': '3306',
     }
@@ -129,21 +129,17 @@ STATICFILES_DIRS = [
 # ... (sin cambios) ...
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+# Configuración REST Framework
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
     ),
     'DEFAULT_PERMISSION_CLASSES': (
-        'rest_framework.permissions.IsAuthenticated',
+        'rest_framework.permissions.IsAuthenticatedOrReadOnly',
     ),
-}
-
-# Configuración opcional de SimpleJWT
-from datetime import timedelta
-
-SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=15),
-    'REFRESH_TOKEN_LIFETIME': timedelta(days=7),
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 20,
 }
 
 # --- CAMBIO: URLs de Login/Logout (corregidas) ---
@@ -158,10 +154,11 @@ LOGIN_REDIRECT_URL = 'lista_productos' # <--- AJUSTA ESTO a como lo tengas en tu
 # A dónde ir después de cerrar sesión
 LOGOUT_REDIRECT_URL = 'login' # <--- CAMBIO (solo necesitas una)
 
-# Configuración opcional de SimpleJWT
+# Configuración JWT
 from datetime import timedelta
 
 SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=15),
+    'ACCESS_TOKEN_LIFETIME': timedelta(hours=1),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=7),
+    'ROTATE_REFRESH_TOKENS': True,
 }
